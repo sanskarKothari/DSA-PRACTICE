@@ -10,18 +10,21 @@
  * };
  */
 class Solution {
-    void pre(TreeNode* root,vector<int>&ans){
-    if(root==nullptr)return;
-    
-    pre(root->left,ans);
-    ans.push_back(root->val);
-    pre(root->right,ans);}
+void f(vector<int>&ans,TreeNode* root){
+    if(root==nullptr){
+        return ;
+
+    }
+  
+    f(ans,root->left);
+      ans.push_back(root->val);
+    f(ans,root->right);
+}
 public:
     vector<int> inorderTraversal(TreeNode* root) {
         vector<int>ans;
-        if(root==nullptr)return ans;
-    
-    pre(root,ans);
-    return ans;
+        f(ans,root);
+        return ans;
+        
     }
 };
