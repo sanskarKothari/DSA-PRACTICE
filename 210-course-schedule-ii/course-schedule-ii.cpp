@@ -1,41 +1,29 @@
 class Solution {
 public:
-    vector<int> findOrder(int n, vector<vector<int>>& prerequisites) {
-         vector<vector<int>> v(n);
-        
-        vector<int> ind(n,0);
-        for(auto it:prerequisites){
-            int u = it[0];
-            int k = it[1];
-            v[k].push_back(u);
-            ind[u]++;
+    vector<int> findOrder(int V, vector<vector<int>>& edges) {
+           vector<vector<int>>a(V);
+        vector<int>in(V,0);
+        vector<int>ad;
+        for(auto i:edges){
+            int j=i[0];
+            int k=i[1];
+            a[k].push_back(j);
+            in[j]++;
         }
-
-        queue<int> q;
-        for(int i=0;i<n;i++){
-            if(ind[i]==0){
-                q.push(i);
-            }
+        queue<int>q;
+        for(int i=0;i<V;i++){
+            if(in[i]==0)q.push(i);
         }
-
-        vector<int> ans;
         while(!q.empty()){
-            int fr = q.front();
-            ans.push_back(fr);
+            int fr=q.front();
+            ad.push_back(fr);
             q.pop();
-
-            for(auto it:v[fr]){
-                ind[it]--;
-                if(ind[it]==0){
-                    q.push(it);
-                }
+            for(auto n:a[fr]){
+                in[n]--;
+                if(in[n]==0)q.push(n);
             }
         }
-
-         if(ans.size()==n) return ans;
-         else{
-            return {};
-         }
-
+        if(ad.size()==V)return ad;
+        return {};
     }
 };
