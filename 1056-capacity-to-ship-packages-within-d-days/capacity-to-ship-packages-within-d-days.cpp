@@ -1,37 +1,39 @@
 class Solution {
-  bool f(vector<int>& nums, int days, int cap) {
-
-    int usedDays = 1;
-    int load = 0;
-
-    for (int x : nums) {
-
-        if (load + x <= cap) {
-            load += x;
+    bool ok(vector<int>& w,int days,int m){
+        int sum=0;
+        int d=1;
+        for(auto i:w){
+            if(sum+i>m){
+                d++;
+                sum=i;
+            }
+            else{
+                sum+=i;
+            }
         }
-        else {
-            usedDays++;
-            load = x;
-        }
+        return d<=days;
+        
+
     }
-
-    return usedDays <= days;
-}
 public:
-    int shipWithinDays(vector<int>& nums, int t) {
-         int l=*max_element(nums.begin(), nums.end());
+    int shipWithinDays(vector<int>& nums, int days) {
+        int l=*max_element(nums.begin(), nums.end());
         int h= accumulate(nums.begin(), nums.end(), 0);
         int ans=h;
         while(l<=h){
             int m=l+(h-l)/2;
-        if(f(nums,t,m)){
-            ans=m;
-            h=m-1;
-        }
-        else{
-            l=m+1;
-        }
+            if(ok(nums,days,m)){
+                ans=m;
+                h=m-1;
+
+            }
+            else{
+
+                l=m+1;
+            }
         }
         return ans;
+
+        
     }
 };
