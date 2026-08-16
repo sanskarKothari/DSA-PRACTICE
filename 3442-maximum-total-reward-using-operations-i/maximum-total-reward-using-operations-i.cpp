@@ -3,7 +3,7 @@ public:
     int maxTotalReward(vector<int>& rewardValues) {
         sort(rewardValues.begin(), rewardValues.end());
 
-        int maxSum = 4000; // maximum possible useful sum
+        int maxSum = 4000; 
         vector<bool> dp(maxSum + 1, false);
 
         dp[0] = true;
