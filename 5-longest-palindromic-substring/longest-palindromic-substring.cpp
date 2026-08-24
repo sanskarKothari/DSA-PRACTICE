@@ -1,35 +1,34 @@
 class Solution {
-public:
-    void expand(string &s, int left, int right, int &start, int &maxLen) {
-
-        while (left >= 0 && right < s.size() && s[left] == s[right]) {
-
-            int len = right - left + 1;
-
-            if (len > maxLen) {
-                maxLen = len;
-                start = left;
-            }
-
-            left--;
-            right++;
+    bool f(const string& s,int i,int j){
+        if(i>=j){
+            return 1;
+        }
+        if(s[i]==s[j]){
+           return  f(s,i+1,j-1);
+        }
+        else{
+            return 0;
         }
     }
+public:
 
     string longestPalindrome(string s) {
+        int n=s.size();
+        int sr=0;
+        int maxl=0;
+        for(int i=0;i<n;i++){
+            for(int j=i;j<n;j++){
+                if(f(s,i,j)){
+                    if(maxl<(j-i+1)){
+                        maxl=j-i+1;
+                        sr=i;
 
-        int start = 0;
-        int maxLen = 1;
-
-        for (int i = 0; i < s.size(); i++) {
-
-            
-            expand(s, i, i, start, maxLen);
-
-            
-            expand(s, i, i + 1, start, maxLen);
+                    }
+                   
+                  
+                }
+            }
         }
-
-        return s.substr(start, maxLen);
+        return s.substr(sr,maxl);
     }
 };
