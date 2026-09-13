@@ -11,7 +11,7 @@ public:
             }
         }
 
-        map<pair<int,int>, int> mp;
+        unordered_map<int, int> mp;
         int ans = 0;
 
         for (auto x : a) {
@@ -19,7 +19,8 @@ public:
                 int dx = y.first - x.first;
                 int dy = y.second - x.second;
 
-                ans = max(ans, ++mp[{dx, dy}]);
+                int key = (dx + n) * (2 * n - 1) + (dy + n);
+                ans = max(ans, ++mp[key]);
             }
         }
 
